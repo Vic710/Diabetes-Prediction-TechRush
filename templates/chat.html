@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Assistance</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+            color: #5a5a5a;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 960px;
+        }
+
+        .chat-container {
+            padding: 15px;
+            margin-bottom: 30px;
+            background-color: rgba(0, 123, 255, .15);
+            border: 1px solid rgba(0, 123, 255, .2);
+        }
+
+        .response-text {
+            font-size: 18px;
+            color: #5a5a5a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container chat-container">
+        <h1 class="text-center">Personalized Assistance</h1>
+        <div id="chatResponse" class="response-text text-center"></div>
+    </div>
+
+    <script>
+        const genaiResponse = localStorage.getItem('genai_response');
+        document.getElementById('chatResponse').innerText = genaiResponse;
+    </script>
+</body>
+</html>

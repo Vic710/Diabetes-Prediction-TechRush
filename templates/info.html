@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Detector</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 54px;
+            margin: 0;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .navbar-nav .nav-item .nav-link {
+            position: relative;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 8px 15px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-item .nav-link:before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            height: 3px;
+            width: 0;
+            background: #34efdf;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            transform: translateX(-50%);
+        }
+
+        .navbar-nav .nav-item .nav-link:hover:before {
+            width: 100%;
+        }
+
+        .navbar-nav .nav-item .nav-link:hover {
+            color: #34efdf;
+        }
+
+        .jumbotron {
+            background: #fff;
+            padding: 2rem 1rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="{{ url_for('index') }}">Diabetes Detector</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('detection') }}">Detection</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('info') }}">Graphs</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    </header>
+    <br />
+    <br />
+    <div class="container">
+        <h1 style="text-align:center;">Diabetes Index in India</h1>
+        <p style="text-align:center;">This is a directory of diabetes, this index provides in depth the details about diabetes including its symptoms.</p>
+
+        <h2>Diabetes</h2>
+        <div style="text-align: center; margin-top: 20px">
+            <img style="max-width: 600px" src="{{ url_for('static', filename='diabetes2.jpg') }}" /><br /><br />
+        </div>
+        <div style="text-align: center; margin-top: 20px">
+            <img style="max-width: 600px" src="{{ url_for('static', filename='diabetes.jpg') }}" alt="Graphs of Diabetes Data" /><br /><br />
+        </div>
+        <h3>What is diabetes?</h3>
+        <p>Diabetes occurs when your body does not process food as energy properly. Insulin is a critical hormone that gets glucose (sugar that is used as energy) to the cells in your body. When you have diabetes, your body either doesn’t respond to insulin or doesn’t produce insulin at all. This causes sugars to build up in your blood, which puts you at risk of dangerous complications.</p>
+
+        <h3>Types of Diabetes</h3>
+        <p>Diabetes can be classified as type 1, type 2 or gestational.</p>
+
+        <h4>Type 1 Diabetes</h4>
+        <p>Type 1 diabetes is an autoimmune disease in which the immune system attacks and destroys the cells in the body that produce insulin. The rate of type 1 diabetes is rising worldwide, with the greatest increase occurring in children younger than age 5.</p>
+        <p>In people with type 1 diabetes, the body does not make enough of the hormone insulin, which enables the body to convert glucose (a simple sugar) into energy. Type 1 diabetes develops when the insulin-producing beta cells in the pancreas are destroyed due to an autoimmune process in which the body’s immune system mistakenly destroys its own organs or tissues. The onset of symptoms can happen quickly. People with type 1 diabetes may need daily insulin shots.</p>
+
+        <h4>Type 2 Diabetes</h4>
+        <p>Type 2 diabetes is a metabolic disorder that results from the body’s inability to make enough insulin or to properly use insulin. Type 2 diabetes is the most common type of diabetes. In type 2 diabetes, the pancreas produces enough insulin, but the body cannot use it effectively. This is referred to as insulin resistance. Gradually, insulin production slows down, as is the case in type 1 diabetes. Previously unheard of in children and teens, type 2 diabetes is now being diagnosed more often in children and teens, which some research links to increasing rates of childhood obesity.</p>
+
+        <h4>Gestational Diabetes</h4>
+        <p>Gestational diabetes develops during pregnancy when a hormone made by the placenta prevents the mother’s body from using insulin effectively. It is not caused by a lack of insulin but by other hormones produced during pregnancy that can make insulin less effective. Gestational diabetic symptoms disappear following delivery of the baby.</p>
+
+        <h4>Prediabetes</h4>
+        <p>In a condition called prediabetes, the blood sugar level is elevated but not to a degree that constitutes diabetes. People who have repeated tests showing elevated fasting glucose have increased risk of developing full-blown diabetes. Those over age 45 should be tested for prediabetes or diabetes. If a first blood glucose test is normal, individuals should be retested every three years.</p>
+        <p>Those under age 45 should consider testing for prediabetes or diabetes if they have a body mass index (BMI) greater than or equal to 25 kg/m2 and have several risk factors, such as a sedentary lifestyle, taking certain medications (including some antipsychotic, steroid, diuretic medicines) or having a family history of the disease.</p>
+
+        <h3>Diabetes Symptoms</h3>
+        <p>Depending on the type, diabetes can cause too much glucose in the blood or too little.</p>
+
+        <h4>Hyperglycemia (High Blood Sugar)</h4>
+        <p>Diabetes is characterized by a failure to secrete enough insulin. Insulin is a hormone produced in the pancreas. It is needed by the body to convert glucose into energy. Without adequate insulin, abnormally high levels of glucose accumulate in the blood.</p>
+
+        <h4>Hypoglycemia (Low Blood Sugar)</h4>
+        <p>Hypoglycemia is characterized by a blood sugar (glucose) level that is too low to fuel the body’s normal functioning. Hypoglycemia may be a condition by itself, a complication of diabetes or a sign of another disorder.</p>
+
+        <p>Problems with blood sugar regulation due to diabetes can cause:</p>
+        <ul>
+            <li>Headaches</li>
+            <li>Increased thirst</li>
+            <li>Frequent urination</li>
+            <li>Increased appetite</li>
+            <li>Weight loss</li>
+            <li>Blurred vision</li>
+            <li>Fatigue</li>
+            <li>Dry mouth</li>
+        </ul>
+        <p>If your child develops any of the above symptoms, consult a pediatrician immediately.</p>
+
+        <p>Note: Even though type 1 diabetes may take years to develop, the onset of symptoms is fairly sudden and rapid. Undiagnosed and untreated, a person with type 1 diabetes can go into a life-threatening diabetic coma (ketoacidosis). Symptoms of type 2 diabetes are the same as the symptoms of type 1 diabetes, but unlike type 1 diabetes, symptoms tend to develop slowly and gradually.</p>
+        
+        <br>
+        <hr>
+        <br>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+</body>
+
+</html>
