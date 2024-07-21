@@ -5,16 +5,16 @@ from sklearn.metrics import accuracy_score, roc_auc_score, classification_report
 from sklearn.preprocessing import OrdinalEncoder
 import joblib
 
-# Load the data
+#Load data
 data = pd.read_csv('diabetes_prediction_dataset.csv')
 
-# Remove duplicates
+#Remove duplicates
 data = data.drop_duplicates()
 
-# Convert gender column to one-hot encoding
+#Gender columnone-hot encoding
 data = pd.get_dummies(data, columns=['gender'], drop_first=True)
 
-# Converge smoking history into categories
+#Smoking categories
 def converge_smoking_status(smoking_status):
     if smoking_status in ['never', 'No Info']:
         return 'non-smoker'
@@ -25,27 +25,26 @@ def converge_smoking_status(smoking_status):
 
 data['smoking_history'] = data['smoking_history'].apply(converge_smoking_status)
 
-# Perform one-hot encoding on the smoking history column
+#One-hot encoding smoking history column
 data = pd.get_dummies(data, columns=['smoking_history'], drop_first=True)
 
-# Define features and target
-X = data.drop('diabetes', axis=1)
+#Define features and target
+X = data.drop('diabetes', axis=1) #drop diabetes target column 
 y = data['diabetes']
 
-# Split the dataset
+#Split the dataset
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=2)
 
-# Apply SMOTE
+#Apply SMOTE
 from imblearn.over_sampling import SMOTE
 
 smote = SMOTE(random_state=2)
 X_train_res, y_train_res = smote.fit_resample(X_train, y_train)
 
-# Initialize and train the classifier
+#Model training
 rf_classifier = RandomForestClassifier(criterion='entropy', max_depth=4, max_features='log2', n_estimators=100, random_state=2)
 rf_classifier.fit(X_train_res, y_train_res)
 
-# Save the trained model and column names
+#Save model and columns into pickle file
 joblib.dump(rf_classifier, 'diabetes_rf_model.pkl')
 joblib.dump(X_train_res.columns, 'model_columns.pkl')
-
