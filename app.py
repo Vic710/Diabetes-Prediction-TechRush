@@ -1,14 +1,13 @@
 
-
 from flask import Flask, render_template, redirect, url_for, request, jsonify
 import pandas as pd
 import numpy as np
 import joblib
-import pickle
-import requests
+import os
+import replicate
+import json
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, roc_auc_score, classification_report, mean_absolute_error, r2_score
 from sklearn.preprocessing import OrdinalEncoder
 
@@ -18,7 +17,9 @@ app = Flask(__name__)
 model = joblib.load('diabetes_rf_model.pkl')
 model_columns = joblib.load('model_columns.pkl')
 
-GEMINI_API_KEY = 'your_gemini_api_key'
+# Set Replicate API Token
+REPLICATE_API_TOKEN = "r8_2tKMLBExzvw3zDYpqb9sQSUNTKcV2zJ4d7pTq"
+os.environ['REPLICATE_API_TOKEN'] = REPLICATE_API_TOKEN
 
 @app.route('/')
 def index():
@@ -61,8 +62,6 @@ def preprocess_input(data, model_columns):
     data = data[model_columns]
 
     return data
-
-
 @app.route('/predict', methods=['POST'])
 def predict():
     if request.method == 'POST':
@@ -89,40 +88,86 @@ def predict():
             prediction_proba = model.predict_proba(input_data_preprocessed)[:, 1]
 
             probability = prediction_proba * 100  
-            return render_template('diab_result.html', probability=round(probability[0],2))
+            return render_template('diab_result.html', 
+                                   probability=round(probability[0], 2),
+                                   age=input_data['age'],
+                                   bmi=input_data['bmi'],
+                                   blood_glucose_level=input_data['blood_glucose_level'],
+                                   HbA1c_level=input_data['HbA1c_level'],
+                                   hypertension=input_data['hypertension'],
+                                   heart_disease=input_data['heart_disease'],
+                                   gender=input_data['gender'],
+                                   smoking_history=input_data['smoking_history'])
         except Exception as e:
             print(f"Error: {e}")
             return "An error occurred. Please check the logs."
-        
 
-@app.route('/get_assistance', methods=['POST'])
-def get_assistance():
-    data = request.json
-    result = data['result']
-    genai_prompt = f"Based on the diabetes detection result of {result}, provide personalized assistance."
 
-    try:
-        response = requests.post(
-            'https://api.gemini.com/v1/chat',
-            headers={
-                'Content-Type': 'application/json',
-                'Authorization': f'Bearer {GEMINI_API_KEY}'
-            },
-            json={
-                'model': 'text-davinci-002',  # or any other model you are using
-                'prompt': genai_prompt,
-                'max_tokens': 150
-            }
-        )
-        response_data = response.json()
-        answer = response_data['choices'][0]['text'].strip()
+# Helper function to generate LLaMA2 response
+def generate_llama2_response(messages):
+    string_dialogue = "You are a helpful assistant. Your purpose is to provide guidance based on the user's health data and model predictions. "
+    for dict_message in messages:
+        if dict_message["role"] == "user":
+            string_dialogue += "User: " + dict_message["content"] + "\n\n"
+        else:
+            string_dialogue += "Assistant: " + dict_message["content"] + "\n\n"
 
-        return jsonify({'answer': answer})
-    except Exception as e:
-        print(f"Error fetching GenAI response: {e}")
-        return jsonify({'error': 'Internal Server Error'}), 500
+    response_generator = replicate.run(
+        'a16z-infra/llama13b-v2-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5',
+        input={"prompt": f"{string_dialogue} Assistant: ", "temperature": 0.1, "top_p": 0.9,
+               "max_length": 300, "repetition_penalty": 1}
+    )
 
+    response = ""
+    for resp in response_generator:
+        response += resp
+
+    response += "\n\nPlease note: Always seek professional medical care for accurate diagnosis and treatment."
+
+    return response
+
+@app.route('/get_advice', methods=['POST'])
+def get_advice():
+    if request.method == 'POST':
+        try:
+            data = request.json
+            user_data = data.get('user_data', {})
+            model_prediction = data.get('model_prediction', "")
+
+            # Prepare messages for LLaMA2 model
+            messages = [{"role": "user", "content": f"Based on the user's data: {user_data} and the model's prediction: {model_prediction}, provide advice."}]
+
+            # Get the response from the LLaMA2 model
+            response = generate_llama2_response(messages)
+
+            return jsonify({"response": response})
+        except Exception as e:
+            print(f"Error: {e}")
+            return jsonify({"error": "An error occurred. Please check the logs."})
+
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    if request.method == 'POST':
+        try:
+            data = request.json
+            messages = data.get('messages', [])
+            user_data = data.get('user_data', {})
+            model_prediction = data.get('model_prediction', "")
+
+            # Add user data and model prediction to messages if provided
+            if user_data and model_prediction:
+                messages.append({"role": "user", "content": f"Based on the user's data: {user_data} and the model's prediction: {model_prediction}, provide advice."})
+            
+            response = generate_llama2_response(messages)
+            return jsonify({"response": response})
+        except Exception as e:
+            print(f"Error: {e}")
+            return jsonify({"error": "An error occurred. Please check the logs."})
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+
 
