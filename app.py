@@ -18,7 +18,7 @@ model = joblib.load('diabetes_rf_model.pkl')
 model_columns = joblib.load('model_columns.pkl')
 
 # Set Replicate API Token
-REPLICATE_API_TOKEN = "r8_2tKMLBExzvw3zDYpqb9sQSUNTKcV2zJ4d7pTq"
+REPLICATE_API_TOKEN = "r8_OLnwzTVmF4Ar5yYJw1G4t81pamRkFYW1d0dLK"
 os.environ['REPLICATE_API_TOKEN'] = REPLICATE_API_TOKEN
 
 @app.route('/')
@@ -32,6 +32,19 @@ def info():
 @app.route("/detection")
 def detection():
     return render_template("detection.html")
+
+
+@app.route("/symptoms")
+def symptoms():
+    return redirect("https://www.who.int/health-topics/diabetes?gad_source=1&gclid=CjwKCAjw4_K0BhBsEiwAfVVZ_1sLwEwr3CJYIqAq0ZxaCbOZuEQVRWm_lQQql87wM-DABt9322YXDRoCxu4QAvD_BwE#tab=tab_2")
+
+@app.route("/tips")
+def tips():
+    return redirect("https://www.diabetes.org.uk/guide-to-diabetes/enjoy-food/eating-with-diabetes/10-ways-to-eat-well-with-diabetes")
+
+@app.route("/diet")
+def diet():
+    return redirect("https://www.diabetes.org.uk/guide-to-diabetes/enjoy-food/eating-with-diabetes/what-is-a-healthy-balanced-diet")
 
 # Function to preprocess input data
 def preprocess_input(data, model_columns):
@@ -115,7 +128,7 @@ def generate_llama2_response(messages):
     response_generator = replicate.run(
         'a16z-infra/llama13b-v2-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5',
         input={"prompt": f"{string_dialogue} Assistant: ", "temperature": 0.1, "top_p": 0.9,
-               "max_length": 300, "repetition_penalty": 1}
+               "max_length": 10000, "repetition_penalty": 1}
     )
 
     response = ""
@@ -165,8 +178,14 @@ def chat():
             print(f"Error: {e}")
             return jsonify({"error": "An error occurred. Please check the logs."})
 
+@app.route('/show_advice')
+def show_advice():
+    advice = request.args.get('advice', '')
+    return render_template('advice.html', advice=advice)
+
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
