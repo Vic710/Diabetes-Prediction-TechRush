@@ -32,12 +32,15 @@ Hypertension status
 Heart Disease status
 Gender
 Smoking History
+
+
 2. Data Preprocessing
 The input data is preprocessed to match the format required by the Random Forest model:
 
 Recategorization: The smoking history is recategorized into 'non-smoker', 'current smoker', and 'past smoker'.
 One-Hot Encoding: Categorical variables such as gender and smoking history are converted to one-hot encoded columns.
 Column Matching: Ensures all columns required by the model are present in the input data.
+
 3. Prediction
 The preprocessed data is passed to the Random Forest model to get the probability of having diabetes. The model was trained on a diabetes dataset and saved using Joblib.
 
