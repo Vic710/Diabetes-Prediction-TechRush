@@ -5,3 +5,5 @@ numpy
 joblib
 scikit-learn
 replicate
+google-generativeai
+google
