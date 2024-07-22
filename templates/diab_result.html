@@ -14,9 +14,10 @@
         body {
             padding-top: 3rem;
             padding-bottom: 3rem;
-            color: #5a5a5a;
+            color: #000000;
             font-family: 'Poppins', sans-serif;
             overflow-x: hidden;
+            background: linear-gradient(to right, #044c8b, #00f2fe); /* Gradient blue background */
         }
 
         nav {
@@ -35,13 +36,24 @@
         .themed-container {
             padding: 15px;
             margin-bottom: 30px;
-            background-color: rgba(0, 123, 255, .15);
-            border: 1px solid rgba(0, 123, 255, .2);
+            background-color: rgba(7, 43, 82, 0.066);
+            border: 1px solid rgba(12, 86, 165, 0.2);
         }
 
         .result-text {
             font-size: 24px;
-            color: #5a5a5a;
+            color: #000000;
+        }
+
+        .btn-custom-download {
+            background-color:#FAF9F6;
+            border-color: #089288;
+            color: rgb(0, 0, 0);
+        }
+        
+        .btn-custom-download:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
         }
     </style>
 </head>
@@ -57,8 +69,8 @@
             </h1>
         </div>
         <div class="text-center">
-            <button class="btn btn-primary btn-lg" id="getAssistance">Get Personalized Assistance</button>
-            <button class="btn btn-secondary btn-lg" id="download">Download</button>
+            <button class="btn btn-custom-download btn-lg" id="getAssistance">Get Personalized Assistance</button>
+            <button class="btn btn-custom-download btn-lg" id="download">Download</button>
         </div>
     </div>
 
