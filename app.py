@@ -18,7 +18,7 @@ model = joblib.load('diabetes_rf_model.pkl')
 model_columns = joblib.load('model_columns.pkl')
 
 # Set Replicate API Token
-REPLICATE_API_TOKEN = "r8_X5Vgg7bJZSrb5WqBj7DfPXPcA7G8T9i0ED1R4"
+REPLICATE_API_TOKEN = "r8_1RrxWLTiqjUpDJV3t3UVrLPp4GL2SNA1NXG1E"
 os.environ['REPLICATE_API_TOKEN'] = REPLICATE_API_TOKEN
 
 @app.route('/')
