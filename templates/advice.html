@@ -5,23 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personalized Advice</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .advice-header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .advice-body {
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .advice-body p {
+            font-size: 1.1rem;
+        }
+        .advice-body strong {
+            color: #007bff;
+        }
+        .advice-body ul {
+            padding-left: 20px;
+        }
+        .advice-body li {
+            margin-bottom: 10px;
+        }
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #6c757d;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <div class="py-5 text-center">
+        <div class="advice-header text-center">
             <h2>Personalized Advice</h2>
-            <p class="lead">Based on your provided data, here is some personalized advice:</p>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <p>{{ advice }}</p>
-                    </div>
-                </div>
-            </div>
+        <div class="advice-body mt-4">
+            <p>{{ advice|safe }}</p>
+        </div>
+        <div class="footer">
+            <p>Powered by Gemini AI - Your health assistant</p>
         </div>
     </div>
 </body>
 </html>
-
