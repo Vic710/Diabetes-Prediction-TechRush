@@ -7,3 +7,4 @@ scikit-learn
 replicate
 google-generativeai
 google
+markdown2
