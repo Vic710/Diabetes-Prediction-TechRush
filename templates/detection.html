@@ -103,11 +103,12 @@
         }
 
         .btn {
-            position: absolute;
+            position: relative;
+            bottom: 12px;
+            /* Adjust this value to position the button */
+            left: 85px;
+            transform: translateX(-50%);
             background-color: transparent;
-            top: 130%;
-            left: 38%;
-            transform: translate(-50%, -50%);
             width: 170px;
             height: 50px;
             border: 5px solid #f9c23c;
@@ -116,6 +117,7 @@
             cursor: pointer;
             overflow: hidden;
         }
+
 
         .btn p {
             text-transform: uppercase;
@@ -243,11 +245,13 @@
             </div>
             <div class="form-group">
                 <label for="blood_glucose_level">Glucose Level (mg/dL):</label>
-                <input type="number" step="any" class="form-control" id="blood_glucose_level" name="blood_glucose_level" min="0" required>
+                <input type="number" step="any" class="form-control" id="blood_glucose_level" name="blood_glucose_level"
+                    min="0" required>
             </div>
             <div class="form-group">
                 <label for="HbA1c_level">HbA1c Level (in %):</label>
-                <input type="number" step="any" class="form-control" id="HbA1c_level" name="HbA1c_level" min="0" required>
+                <input type="number" step="any" class="form-control" id="HbA1c_level" name="HbA1c_level" min="0"
+                    required>
             </div>
             <div class="form-group">
                 <label for="hypertension">Hypertension (High Blood Pressure (130/80 mmHg or higher)):</label>
@@ -286,10 +290,9 @@
                     <p>Submit</p>
                 </button>
             </div>
-            
+
         </form>
     </div>
 </body>
 
 </html>
-
