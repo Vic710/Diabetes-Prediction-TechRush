@@ -1,240 +1,3 @@
-<!-- <!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/carousel/">
-    <link rel="stylesheet" type="text/css" href="index.css">
-
-    <title>Diabetes Prediction</title>
-</head>
-<style>
-    .navbar-nav .nav-item .nav-link {
-        position: relative;
-        color: #fff;
-        font-size: 18px;
-        font-weight: 500;
-        padding: 8px 15px;
-        text-decoration: none;
-        transition: all 0.3s ease;
-    }
-
-    .navbar-nav .nav-item .nav-link:before {
-        content: '';
-        position: absolute;
-        bottom: -5px;
-        left: 50%;
-        height: 3px;
-        width: 0;
-        background: #34efdf;
-        border-radius: 12px;
-        transition: all 0.4s ease;
-        transform: translateX(-50%);
-    }
-
-    .navbar-nav .nav-item .nav-link:hover:before {
-        width: 100%;
-    }
-
-    .navbar-nav .nav-item .nav-link:hover {
-        color: #34efdf;
-    }
-
-    button {
-        border-style: none;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5 {
-        text-align: center;
-
-    }
-
-    form {
-        margin-top: 3%;
-        margin-left: 29%;
-        margin-right: 21%;
-
-    }
-
-    form fieldset {
-        padding: 30px;
-        border-width: 20px;
-        border-style: groove;
-        border-color: #5a5a5a;
-        background-color: #fff;
-    }
-
-    fieldset h1 {
-        color: #5a5a5a;
-        padding-bottom: 20px;
-        margin-left: 35px;
-        display: inline-block;
-        cursor: pointer;
-        font-size: 28px;
-        text-align: center;
-    }
-
-    fieldset label {
-        margin-left: 20px;
-        margin-right: 40px;
-        padding: 23px;
-        font-size: 20px;
-        display: inline-block;
-        width: 240px;
-    }
-
-    fieldset input {
-        padding: 8px;
-        color: #938c8c
-    }
-
-    fieldset input:focus {
-        color: #000;
-    }
-
-    fieldset button {
-        margin-left: 60px;
-        color: #fff;
-        background-color: #5a5a5a;
-        border-radius: 3px;
-        padding: 13px 39px;
-        text-align: center;
-        letter-spacing: 0.9px;
-        text-decoration: none;
-        margin-right: 15px;
-        line-height: 26px;
-        font-size: 16px;
-        box-shadow: 0px 1px 3px 0px #5a5a5a;
-        right: 0px;
-        margin-top: 15px;
-    }
-
-
-    .submit {
-        margin-left: 60px;
-        color: #fff;
-        background-color: #5a5a5a;
-        border-radius: 3px;
-        padding: 13px 39px;
-        text-align: center;
-        letter-spacing: 0.9px;
-        text-decoration: none;
-        margin-right: 10px;
-        line-height: 26px;
-        font-size: 16px;
-        box-shadow: 0px 1px 3px 0px #5a5a5a;
-        right: 100px;
-        margin-top: 15px;
-    }
-
-    #link_to_edit {
-        padding-left: 45px;
-    }
-
-    .fieldset {
-        margin-top: 3%;
-        margin-left: 0%;
-        margin-right: 0%;
-        padding: 30px;
-        border-width: 25px;
-        border-style: ridge;
-        border-color: #257a7a;
-        box-shadow: 6px 13px 13px 0px black;
-        background-color: #ebfffa;
-    }
-</style>
-
-<body>
-
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <a class="navbar-brand" href="{{ url_for('index') }}">Diabetes Detector</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('detection') }}">Detection</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('info') }}">Info</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header><br /><br />
-    
-    <h1 style="text-align:center;">Diabetes Prediction</h1>
-    <h5 style="text-align:center;">Please enter the patient details</h5>
-    <form action="/predict" method="post">
-        <div class="form-group">
-            <label for="age">Age:</label>
-            <input type="number" class="form-control" id="age" name="age" required>
-        </div>
-        <div class="form-group">
-            <label for="bmi">BMI:</label>
-            <input type="number" step="any" class="form-control" id="bmi" name="bmi" required>
-        </div>
-        <div class="form-group">
-            <label for="glucose">Glucose Level:</label>
-            <input type="number" step="any" class="form-control" id="glucose" name="glucose" required>
-        </div>
-        <div class="form-group">
-            <label for="HbA1c_level">HbA1c Level:</label>
-            <input type="number" step="any" class="form-control" id="HbA1c_level" name="HbA1c_level" required>
-        </div>
-        <div class="form-group">
-            <label for="hypertension">Hypertension (1 for Yes, 0 for No):</label>
-            <input type="number" class="form-control" id="hypertension" name="hypertension" required>
-        </div>
-        <div class="form-group">
-            <label for="heart_disease">Heart Disease (1 for Yes, 0 for No):</label>
-            <input type="number" class="form-control" id="heart_disease" name="heart_disease" required>
-        </div>
-        <div class="form-group">
-            <label for="gender">Gender:</label>
-            <select class="form-control" id="gender" name="gender" required>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="smoking_history">Smoking History:</label>
-            <select class="form-control" id="smoking_history" name="smoking_history" required>
-                <option value="never">Never</option>
-                <option value="current">Current</option>
-                <option value="past_smoker">Past Smoker</option>
-                <option value="No Info">No Info</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-
-    </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-</body>
-
-</html> -->
-
 <!DOCTYPE html>
 <html>
 
@@ -242,11 +5,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/carousel/">
-    <link rel="stylesheet" type="text/css" href="index.css">
 
     <title>Diabetes Prediction</title>
+    @import
+    url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #2e2e2e;
+            color: #28a745;
+        }
+
         .navbar-nav .nav-item .nav-link {
             position: relative;
             color: #fff;
@@ -264,7 +42,7 @@
             left: 50%;
             height: 3px;
             width: 0;
-            background: #34efdf;
+            background: #25c5ff;
             border-radius: 12px;
             transition: all 0.4s ease;
             transform: translateX(-50%);
@@ -275,7 +53,7 @@
         }
 
         .navbar-nav .nav-item .nav-link:hover {
-            color: #34efdf;
+            color: #000000;
         }
 
         .container {
@@ -286,118 +64,150 @@
             margin-bottom: 20px;
         }
 
-        button {
-            border-style: none;
-        }
-
         h1,
         h2,
         h3,
         h4,
         h5 {
             text-align: center;
-
         }
 
         form {
-            margin-top: 3%;
-            margin-left: 29%;
-            margin-right: 21%;
-
+            margin-top: 5%;
+            margin-left: 25%;
+            margin-right: 25%;
+            margin-bottom: 10%;
+            color: white;
         }
 
-        form fieldset {
-            padding: 30px;
-            border-width: 20px;
-            border-style: groove;
-            border-color: #5a5a5a;
-            background-color: #fff;
-        }
-
-        fieldset h1 {
-            color: #5a5a5a;
-            padding-bottom: 20px;
-            margin-left: 35px;
+        .bmi-button {
             display: inline-block;
+            color: #000000;
+            background-color: #ffffff;
+            font-weight: 600;
+            margin-top: 10px;
+            border-radius: 8px;
+            padding: 2px 10px;
+            text-align: center;
+            letter-spacing: 1px;
+            text-decoration: none;
+            margin-left: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .bmi-button:hover {
+            background-color: rgb(3, 0, 0);
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .btn {
+            position: absolute;
+            background-color: transparent;
+            top: 130%;
+            left: 38%;
+            transform: translate(-50%, -50%);
+            width: 170px;
+            height: 50px;
+            border: 5px solid #f9c23c;
+            padding: 2px;
+            border-radius: 120px;
             cursor: pointer;
-            font-size: 28px;
-            text-align: center;
+            overflow: hidden;
         }
 
-        fieldset label {
-            margin-left: 20px;
-            margin-right: 40px;
-            padding: 23px;
+        .btn p {
+            text-transform: uppercase;
+            text-align: right;
+            color: #fff;
+            font-weight: 900;
             font-size: 20px;
-            display: inline-block;
-            width: 240px;
-        }
-
-        fieldset input {
-            padding: 8px;
-            color: #938c8c
-        }
-
-        fieldset input:focus {
-            color: #000;
-        }
-
-        fieldset button {
-            margin-left: 60px;
-            color: #fff;
-            background-color: #5a5a5a;
-            border-radius: 3px;
-            padding: 13px 39px;
-            text-align: center;
-            letter-spacing: 0.9px;
-            text-decoration: none;
             margin-right: 15px;
-            line-height: 26px;
-            font-size: 16px;
-            box-shadow: 0px 1px 3px 0px #5a5a5a;
-            right: 0px;
-            margin-top: 15px;
+            transition: all 0.5s ease;
         }
 
-
-        .submit {
-            margin-left: 60px;
+        .send {
+            position: absolute;
+            top: 3px;
+            left: 20px;
             color: #fff;
-            background-color: #5a5a5a;
-            border-radius: 3px;
-            padding: 13px 39px;
-            text-align: center;
-            letter-spacing: 0.9px;
-            text-decoration: none;
-            margin-right: 10px;
-            line-height: 26px;
-            font-size: 16px;
-            box-shadow: 0px 1px 3px 0px #5a5a5a;
-            right: 100px;
-            margin-top: 15px;
+            transition: all 0.5s ease;
         }
 
-        #link_to_edit {
-            padding-left: 45px;
+        .send2 {
+            position: absolute;
+            top: 3px;
+            left: 20px;
+            color: #fff;
+            transition: all 0.5s ease;
         }
 
-        .fieldset {
-            margin-top: 3%;
-            margin-left: 0%;
-            margin-right: 0%;
-            padding: 30px;
-            border-width: 25px;
-            border-style: ridge;
-            border-color: #257a7a;
-            box-shadow: 6px 13px 13px 0px black;
-            background-color: #ebfffa;
+        .btn:hover {
+            background: #f9c23c;
+            transition: all 0.5s ease;
+        }
+
+        .btn:hover p {
+            color: #000000;
+            transition: all 0.5s ease;
+            animation: move 1s linear 1s forwards;
+        }
+
+        .btn:hover .send {
+            top: -50px;
+            transition: all 0.5s ease;
+        }
+
+        .btn:hover .send2 {
+            top: 5px;
+            transition: all 0.5s ease;
+            animation: sending 1s linear 1s forwards;
+        }
+
+        @keyframes sending {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translate(40px, -60px);
+            }
+        }
+
+        @keyframes move {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-18px);
+            }
         }
     </style>
+    <script>
+        function validateForm() {
+            var age = document.getElementById('age').value;
+            var bmi = document.getElementById('bmi').value;
+            var blood_glucose_level = document.getElementById('blood_glucose_level').value;
+            var HbA1c_level = document.getElementById('HbA1c_level').value;
+            var hypertension = document.getElementById('hypertension').value;
+            var heart_disease = document.getElementById('heart_disease').value;
+            var gender = document.getElementById('gender').value;
+            var smoking_history = document.getElementById('smoking_history').value;
+
+            if (age === '' || bmi === '' || blood_glucose_level === '' || HbA1c_level === '' || hypertension === '' || heart_disease === '' || gender === '' || smoking_history === '') {
+                alert('Please fill out all fields.');
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="{{ url_for('index') }}">Diabetes Detector</a>
+        <a class="navbar-brand" href="{{ url_for('index') }}">GlucoSense</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -418,32 +228,40 @@
     </nav>
 
     <div class="container">
-        <h2>Diabetes Detection Form</h2>
-        <form action="/predict" method="post">
+        <h1>Diabetes Detection Form</h1>
+        <h3>Please enter accurate and verified data from a trusted laboratory.</h3>
+        <form action="/predict" method="post" onsubmit="return validateForm()">
             <div class="form-group">
                 <label for="age">Age:</label>
-                <input type="number" class="form-control" id="age" name="age" required>
+                <input type="number" class="form-control" id="age" name="age" min="0" required>
             </div>
             <div class="form-group">
-                <label for="bmi">BMI:</label>
-                <input type="number" step="any" class="form-control" id="bmi" name="bmi" required>
+                <label for="bmi">BMI(Body Mass Index): <a class="bmi-button"
+                        href="https://www.ndtv.com/tools/calculator/bmi-calculator-online" target="_blank">Check
+                        BMI Index</a></label>
+                <input type="number" step="any" class="form-control" id="bmi" name="bmi" min="0" required>
             </div>
             <div class="form-group">
-                <label for="blood_glucose_level">Glucose Level:</label>
-                <input type="number" step="any" class="form-control" id="blood_glucose_level" name="blood_glucose_level"
-                    required>
+                <label for="blood_glucose_level">Glucose Level (mg/dL):</label>
+                <input type="number" step="any" class="form-control" id="blood_glucose_level" name="blood_glucose_level" min="0" required>
             </div>
             <div class="form-group">
-                <label for="HbA1c_level">HbA1c Level:</label>
-                <input type="number" step="any" class="form-control" id="HbA1c_level" name="HbA1c_level" required>
+                <label for="HbA1c_level">HbA1c Level (in %):</label>
+                <input type="number" step="any" class="form-control" id="HbA1c_level" name="HbA1c_level" min="0" required>
             </div>
             <div class="form-group">
-                <label for="hypertension">Hypertension (1 for Yes, 0 for No):</label>
-                <input type="number" class="form-control" id="hypertension" name="hypertension" required>
+                <label for="hypertension">Hypertension (High Blood Pressure (130/80 mmHg or higher)):</label>
+                <select class="form-control" id="hypertension" name="hypertension" required>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
             </div>
             <div class="form-group">
-                <label for="heart_disease">Heart Disease (1 for Yes, 0 for No):</label>
-                <input type="number" class="form-control" id="heart_disease" name="heart_disease" required>
+                <label for="heart_disease">Past Heart Diseases (if any):</label>
+                <select class="form-control" id="heart_disease" name="heart_disease" required>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="gender">Gender:</label>
@@ -461,7 +279,14 @@
                     <option value="No Info">No Info</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="form-group">
+                <button type="submit" class="btn">
+                    <i class="fa fa-paper-plane-o fa-2x send" aria-hidden="true"></i>
+                    <i class="fa fa-paper-plane-o fa-2x send2" aria-hidden="true"></i>
+                    <p>Submit</p>
+                </button>
+            </div>
+            
         </form>
     </div>
 </body>
